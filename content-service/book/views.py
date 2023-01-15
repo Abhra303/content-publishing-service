@@ -1,6 +1,9 @@
-from django.shortcuts import render
+from django.core.management import call_command
 from django.db.models import Case, When
-from rest_framework import viewsets, response
+from rest_framework import viewsets, status
+from rest_framework.response import Response
+from rest_framework.decorators import api_view, parser_classes
+from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.generics import ListAPIView
 from rest_framework.permissions import IsAuthenticatedOrReadOnly
 from .models import Book
@@ -72,3 +75,23 @@ class TopBookListView(ListAPIView):
 			return None
 		else:
 			return queryset
+
+
+@api_view(['POST'])
+@parser_classes([JSONParser, FormParser, MultiPartParser])
+def test_csv_upload_view(request):
+	'''
+	As this view is for testing purpose only, we need to
+	make a seperate endpoint for testing. (maybe?)
+	'''
+	request.upload_handlers.pop(0)
+	csv_file = request.data.get('csv_file')
+	csv_file_path = csv_file.temporary_file_path()
+
+	try:
+		# use the 'upload_csv' command to process further
+		call_command('upload_csv', csv_file_path)
+	except Exception:
+		return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
+
+	return Response(status=status.HTTP_201_CREATED)
