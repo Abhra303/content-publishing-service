@@ -12,7 +12,7 @@ class Command(BaseCommand):
 
 	def handle(self, *args, **options):
 		file_path = Path(options['csv_file_path'])
-		if not file_path.is_file() and file_path.suffix != '.csv':
+		if not file_path.is_file() or file_path.suffix != '.csv':
 			self.stderr.write(self.style.ERROR('the given path \'%s\' is not a valid csv file path'% (options['csv_file_path'])))
 			return
 		try:
