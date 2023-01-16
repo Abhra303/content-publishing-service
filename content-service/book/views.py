@@ -66,7 +66,7 @@ class TopBookListView(ListAPIView):
 			if response_data.status_code == 404:
 				return None
 			top_content_dict = response_data.json()
-			book_ids = top_content_dict['book_ids']
+			book_ids = top_content_dict['content_ids']
 
 			# use the order as given by the user_interaction top content api
 			top_content = Case(*[When(pk=pk, then=pos) for pos, pk in enumerate(book_ids)])
