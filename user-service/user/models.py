@@ -5,15 +5,14 @@ from django.core.validators import RegexValidator
 
 
 class TheUserManager(BaseUserManager):
-	def create_user(self, email, password, **extra_fields):
-		if not email:
+	def create_user(self, first_name, last_name, email_id, phone_no, password, **extra_fields):
+		if not email_id:
 			raise ValueError('Email is required to create the user instance')
-		email = self.normalize_email(email)
-		user = self.model(email_id=email, **extra_fields)
+		email_id = self.normalize_email(email_id)
+		user = self.model(first_name=first_name, last_name=last_name, email_id=email_id, phone_no=phone_no, **extra_fields)
 		user.set_password(password)
 		user.save(using=self.db)
 		return user
-
 
 class User(AbstractBaseUser):
 	first_name = models.CharField(max_length=30)
