@@ -24,6 +24,9 @@ class User(AbstractBaseUser):
 	)
 	phone_no = models.CharField(validators=[phone_regex], max_length=17, blank=True)
 	date_joined = models.DateTimeField(auto_now_add=True)
+	is_verified = models.BooleanField(default=True)
+	is_active = models.BooleanField(default=True)
+	is_staff = models.BooleanField(default=False)
 	USERNAME_FIELD = "email_id"
 	EMAIL_FIELD = "email_id"
 	REQUIRED_FIELDS = ["phone_no", "first_name", "last_name"]
