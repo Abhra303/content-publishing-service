@@ -1,5 +1,4 @@
 import requests
-from django.conf import global_settings
 
 class AuthMiddleware:
 	def __init__(self, get_response):
