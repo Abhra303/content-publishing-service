@@ -5,21 +5,12 @@ from rest_framework.response import Response
 from rest_framework.decorators import api_view, parser_classes
 from rest_framework.parsers import JSONParser, FormParser, MultiPartParser
 from rest_framework.generics import ListAPIView
-from rest_framework.permissions import IsAuthenticatedOrReadOnly
+from auth_sdk.permissions import IsAuthenticatedOrReadOnly
 from .models import Book
 from .serializers import BookSerializer
 from content_service import internal_api
 import requests
 # Create your views here.
-
-def get_author_id(request):
-	'''
-	NOTE: This function is TEMPORARY!
-
-	Ideal case is to use a sdk for our product specifically
-	to communicate between user service and other services.
-	'''
-	return request.user.id
 
 class BookViewset(viewsets.ModelViewSet):
 	'''
@@ -41,9 +32,7 @@ class BookViewset(viewsets.ModelViewSet):
 		This should not be the case as we are creating a seperate
 		user micro-service.
 		'''
-		author_id = get_author_id(request)
-
-		request.data['author_id'] = author_id
+		request.data['author_id'] = request.META.get('user_id')
 		return super().create(request, *args, **kwargs)
 
 
