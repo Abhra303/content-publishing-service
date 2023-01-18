@@ -2,4 +2,4 @@
 # stored here.
 
 
-USER_INTERACTION_TOP_CONTENTS_API = '127.0.0.1/user-interactions/contents/books/top-contents'
+USER_INTERACTION_TOP_CONTENTS_API = 'http://localhost:8002/contents/books/top-contents'

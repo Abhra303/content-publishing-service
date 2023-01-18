@@ -37,16 +37,19 @@ services:
     #   - ./auth-sdk/dist:/home/app/auth_sdk_dist
 
   ngnix:
-    build: ./ngnix-conf
-    container_name: ngnix_router
+    # image: nginx:latest
+    build: ./nginx
+    # command: bash -c "nginx -t"
     ports:
-      - "80:80"
+      - "8000:8000"
     networks:
       - cluster_network
     depends_on:
       - user
       - user_interaction
       - content
+    # volumes:
+    #   - ./nginx/config.conf:/etc/nginx/nginx.conf
 
 networks:
   cluster_network:
