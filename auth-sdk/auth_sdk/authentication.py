@@ -26,6 +26,7 @@ class UserAuthentication(BaseAuthentication):
 				return None
 				
 		except Exception as e:
+			raise e
 			raise exceptions.AuthenticationFailed('Something went wrong while authenticating user')
 			
 		return None
