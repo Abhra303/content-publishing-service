@@ -1,10 +1,11 @@
 from rest_framework.authentication import BaseAuthentication
 from rest_framework import exceptions
+from .settings import AUTH_SERVICE_URL
 import requests
 
 class UserAuthentication(BaseAuthentication):
 	def authenticate(self, request):
-		url = '127.0.0.1:8000/users/verify-token/'
+		url = AUTH_SERVICE_URL + 'verify-token/'
 		auth = request.META.get('HTTP_AUTHORIZATION', '').split()
 		if not auth or auth[0].lower() != 'bearer':
 			return None
