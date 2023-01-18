@@ -1,5 +1,5 @@
 asgiref==3.6.0
--e git+https://github.com/Abhra303/pr-assign.git@388be9462ed671305d846063c6b1fc2abb3ca62e#egg=auth_sdk&subdirectory=auth-sdk
+git+https://github.com/Abhra303/pr-assign.git#subdirectory=auth-sdk
 certifi==2022.12.7
 charset-normalizer==3.0.1
 Django==4.1.5

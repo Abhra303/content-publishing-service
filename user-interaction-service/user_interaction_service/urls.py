@@ -16,5 +16,5 @@ Including another URLconf
 from django.urls import path, include
 
 urlpatterns = [
-    path('interactions/', include('interactions.urls')),
+    path('', include('interactions.urls')),
 ]

@@ -1,0 +1,52 @@
+version: '3.9'
+
+services:
+  user:
+    build: ./user-service
+
+    container_name: user_service
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8001"
+    ports:
+      - "8001:8001"
+    restart: always
+    networks:
+      - cluster_network
+
+  user_interaction:
+    build: ./user-interaction-service
+    container_name: user_interaction_service
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8002"
+    ports:
+      - "8002:8002"
+    restart: always
+    networks:
+      - cluster_network
+    # volumes:
+    #   - .:/home/app/auth_sdk_dist
+
+  content:
+    build: ./content-service
+    container_name: content_service
+    command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8003"
+    ports:
+      - "8003:8003"
+    restart: always
+    networks:
+      - cluster_network
+    # volumes:
+    #   - ./auth-sdk/dist:/home/app/auth_sdk_dist
+
+  ngnix:
+    build: ./ngnix-conf
+    container_name: ngnix_router
+    ports:
+      - "80:80"
+    networks:
+      - cluster_network
+    depends_on:
+      - user
+      - user_interaction
+      - content
+
+networks:
+  cluster_network:
