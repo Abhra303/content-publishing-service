@@ -28,12 +28,19 @@ class BookViewset(viewsets.ModelViewSet):
 		create() should automatically put the author_id of
 		the current user. This method should only work for
 		authenticated users.
-		TODO: For now we are using django's inbuilt user model.
-		This should not be the case as we are creating a seperate
-		user micro-service.
 		'''
-		request.data['author_id'] = request.META.get('user_id')
-		return super().create(request, *args, **kwargs)
+		data = {'title': request.data.get('title'),
+				'author': request.META.get('user_id'),
+				'description': request.data.get('description'),
+				'story': request.data.get('story')
+		}
+		try:
+			serializer = self.get_serializer(data=data)
+			serializer.is_valid(raise_exception=True)
+			self.perform_create(serializer=serializer)
+		except Exception:
+			return Response({'error': 'bad request'}, status=status.HTTP_400_BAD_REQUEST)
+		return Response({'message': 'content created successfully'}, status=status.HTTP_201_CREATED)
 
 
 class NewBookListView(ListAPIView):

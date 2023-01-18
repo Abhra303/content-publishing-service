@@ -4,7 +4,7 @@ from django.db import models
 
 class Book(models.Model):
 	title = models.CharField(max_length=50, null=False)
-	author = models.PositiveIntegerField("author_id", editable=False)
+	author = models.PositiveIntegerField()
 	description = models.CharField(max_length=300, blank=True)
 	story = models.TextField()
 	published_date = models.DateTimeField(auto_now_add=True)
