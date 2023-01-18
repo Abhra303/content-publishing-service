@@ -5,6 +5,7 @@ from rest_framework import status
 from .models import Interaction
 from django.db.models import Count
 from rest_framework.views import APIView
+from auth_sdk.permissions import IsAuthenticatedOrReadOnly
 from .serializers import InteractionSerializer
 # Create your views here.
 
@@ -16,8 +17,10 @@ class ReadLikeHandler(CreateAPIView):
 	attribute. The accepted values are 'Read' and 'Like'.
 	'''
 	type = None
+	# permission_classes = (IsAuthenticatedOrReadOnly,)
 
 	def create(self, request, *args, **kwargs):
+		request.data['user_id'] = request.META.get('user_id')
 		if not self.type:
 			raise Exception('type attribute must be set for the view')
 		if self.type == 'Read':
