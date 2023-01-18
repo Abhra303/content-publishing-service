@@ -8,6 +8,6 @@ class IsAuthenticatedOrReadOnly(BasePermission):
 		if request.method in permissions.SAFE_METHODS:
 			return True
 		
-		if request.data.get('user_id') is not None:
+		if request.META.get('user_id') is not None:
 			return True
 		return False
