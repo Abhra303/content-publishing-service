@@ -90,4 +90,4 @@ def test_csv_upload_view(request):
 	except Exception:
 		return Response(status=status.HTTP_500_INTERNAL_SERVER_ERROR)
 
-	return Response(status=status.HTTP_201_CREATED)
+	return Response({'message': 'contents successfully created'}, status=status.HTTP_201_CREATED)
