@@ -13,5 +13,6 @@ COPY . /home/app/user-interaction-service
 # ADD ../auth-sdk/dist/ /home/app/auth_sdk_dist
 WORKDIR /home/app/user-interaction-service
 RUN ls
+ENV AUTH_SERVICE_URL http://user:8001/
 
 RUN pip install -r requirements.txt

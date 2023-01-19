@@ -17,6 +17,9 @@ The project has three micro-services. These are -
 
  However the NGNIX Gateway is not properly set up yet. So for now, you have to go to each port and make requests. But I will soon fix the NGINX in dev branch. So stay tuned! 
 
+ **[EDIT] FINALLY NGINX API GATEWAY (RUNNING IN DOCKER CONTAINER) IS FIXED. YOU CAN NOW ADD PREFIX TO THE BELOW MENTIONED APIS. THE NGINX PORT IS AT `8000`**
+
+
 ## Design Overview
 This project consists of three micro-services. Every service has their own codebase. Throughout the building process of this project, I ensured that the project follow DRY rule strictly. The services communicate with themselves when necessary (e.g. `content_service` needs `user_interaction_service` for getting `top-contents` information on the basis of most number of interactions. For content-service, one can create content without using drf APIs. `content-service` has a command (`python3 manage.py upload_csv <csv_file_path>`) using which you can create contents from csv files. Content service provides a test API (`books/upload-csv`) that receives csv file as request body and internally calls the `upload_csv` command to create instances.
 
@@ -68,6 +71,7 @@ Note that, all POST, PATCH, DELETE methods require a bearer access token to vali
 
 ### content-service
 
+If you are want to send request using NGINX server, you can use the following prefix `/api/content/` to the below APIs e.g. `localhost:8000/api/content/books/` (GET method) will give the same result as below.
 
 #### [GET] books/
 Get the list of books
@@ -114,6 +118,8 @@ row should contain `title string, author_id, description (optional), story`.
 
 ### User Interaction Service
 
+NGINX server route prefix - `/api/user-interaction/` e.g. you can use `localhost:8000/api/user-interaction/like` to do the same job as below one.
+
 #### [POST] /like
 register a like event on the content_id specified in request.body
 
@@ -135,6 +141,8 @@ request.body -
 ```
 
 ### User Service
+
+NGINX server prefix - `/api/auth/` e.g. you can use `localhost:8000/api/auth/users/` to get the list of users as mentioned below.
 
 #### [GET] users/
 Get the list of all users

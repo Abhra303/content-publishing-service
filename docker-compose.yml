@@ -12,7 +12,7 @@ services:
     networks:
       - cluster_network
 
-  user_interaction:
+  userinteraction:
     build: ./user-interaction-service
     container_name: user_interaction_service
     command: bash -c "python3 manage.py migrate && python3 manage.py runserver 0.0.0.0:8002"
@@ -46,7 +46,7 @@ services:
       - cluster_network
     depends_on:
       - user
-      - user_interaction
+      - userinteraction
       - content
     # volumes:
     #   - ./nginx/config.conf:/etc/nginx/nginx.conf
