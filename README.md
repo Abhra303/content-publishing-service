@@ -11,6 +11,12 @@ The project has three micro-services. These are -
  - **User Interaction Service:** This service is responsible for handling user interactions in any content. Two types of Interactions are recognized here - Read and Like. It also exposes an internal-api to sort contents on the basis of most interactions.
  - **Content Service:** This is the main service of the project. It handles requests to create, update, get and delete contents. Provides CRUD APIs for content. It also exposes two additional endpoints - one for `new-content` and another for `top-content`. The Top content view internally consults the User Interaction Service to get the Ids of top contents in sorted order.
 
+ Below is the diagram of the project architechture:
+
+ ![project architechture](/assets/project_architechture.png)
+
+ However the NGNIX Gateway is not properly set up yet. So for now, you have to go to each port and make requests. But I will soon fix the NGINX in dev branch. So stay tuned! 
+
 ## Design Overview
 This project consists of three micro-services. Every service has their own codebase. Throughout the building process of this project, I ensured that the project follow DRY rule strictly. The services communicate with themselves when necessary (e.g. `content_service` needs `user_interaction_service` for getting `top-contents` information on the basis of most number of interactions. For content-service, one can create content without using drf APIs. `content-service` has a command (`python3 manage.py upload_csv <csv_file_path>`) using which you can create contents from csv files. Content service provides a test API (`books/upload-csv`) that receives csv file as request body and internally calls the `upload_csv` command to create instances.
 
