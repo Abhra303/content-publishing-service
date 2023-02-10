@@ -1,6 +1,6 @@
 # Micro-Service Architechture - A Content Publishing Service
 
-This is a microservice assignment project made with Django, Django-rest-framework and DRF_simplejwt. Its primary objective is to serve contents. This is simple and focuses more on micro-service architechture.
+This is a content publishing micro-service project made with Django, Django-rest-framework and DRF_simplejwt. Its primary objective is to serve contents (e.g. blogs). The features are simple and light-weight.  You can create user account, create and publish contents, and register read-like events on the contents in the database. You can also get the sorted contents based on most user interactions (e.g. having most reads and likes). This project focuses mainly on implementing micro-service architechtures in backend systems.
 
 ## Architechture
 
@@ -15,9 +15,7 @@ The project has three micro-services. These are -
 
  ![project architechture](/assets/project_architechture.png)
 
- However the NGNIX Gateway is not properly set up yet. So for now, you have to go to each port and make requests. But I will soon fix the NGINX in dev branch. So stay tuned! 
-
- **[EDIT] FINALLY NGINX API GATEWAY (RUNNING IN DOCKER CONTAINER) IS FIXED. YOU CAN NOW ADD PREFIX TO THE BELOW MENTIONED APIS. THE NGINX PORT IS AT `8000`**
+ **[NOTE] If you are using docker-compose and if NGINX is running properly, you can add prefixes to APIs mentioned in the API doc below. Prefixes are mentioned at the starting of each service API documentation. NGINX is running at port `8000`**
 
 
 ## Design Overview
@@ -253,6 +251,5 @@ Repeat the process for user_service/ and user-interaction-service/.
 
 ## Future Goals
 
-1. I tried to use NGINX as API Gateway that can route urls to different services based on the url prefix. But I didn't get enough time to make it work. In future, I would like to use NGINX as API Gateway.
-
-2. Currently the databases are using simple sqlite. Instead I should use mysql database.
+-> Currently the databases are using simple sqlite. Instead I should use mysql database.
+-> Use Swagger for API documentation
