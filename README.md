@@ -148,7 +148,7 @@ Get the list of all users
 #### [GET] users/\<user-id>/
 retreive details about the specified \<user-id>
 
-#### [PATCH] users/\<user-id>
+#### [PATCH] users/\<user-id>/
 
 updates some columns in the user with user id \<user-id>
 
